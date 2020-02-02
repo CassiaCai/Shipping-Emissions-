@@ -1,7 +1,5 @@
 # Shipping-Emissions-
 Coding for Earth399
-
-Includes: 
 - Air Quality Simulations
-- Deposition Simulations
+- Deposition Simulations (Simular to Air Quality Simulations)
 - Raw emissions tracking
