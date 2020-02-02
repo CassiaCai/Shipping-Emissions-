@@ -73,6 +73,10 @@ for lists in l:
     timed = plt.xlabel('Time (Hour)')
     timed = plt.xticks(np.arange(0, 24, step=1))
     timed = plt.ylabel('SO2 concentration (ppbV)')
+plt.plot([11, 11], [20000, 95000], linestyle='--', color='black',lw=1)
 plt.show()
+# -----------------------------------------------------
+# Creating graph with all hourly data plotted in one long graph 
+
 # -----------------------------------------------------
 #QUESTION: What does hour 0 mean? What timezone is being used?
