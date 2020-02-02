@@ -1,3 +1,6 @@
+##### Air Quality Simulations: (VAR) Daily Average over the Month (no shipping case) COMBINE_ACONC files
+# Filler VAR is SO2.
+
 ###### Import all necessary (and some potentially unnecessary) packages
 import matplotlib.pyplot as plt; import numpy as np; import netCDF4; from netCDF4 import Dataset
 import pandas as pd; import numpy.ma as ma; import time as timeit; import os; import math
