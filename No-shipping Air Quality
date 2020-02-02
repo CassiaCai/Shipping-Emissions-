@@ -68,7 +68,6 @@ print(C1C2lat[222,331])
 print(C1C2lon[222,331])
 # The worst lat-lon is 42.951096N, 82.365234W
 
-# ---------------------------------------------------------------------------------------------------------------------------
 ##### Plotting
 import cartopy.crs as ccrs
 import matplotlib
@@ -100,3 +99,8 @@ cbar.ax.get_yaxis().labelpad = 20
 cbar.ax.set_ylabel(' SO2 concentration (ppbV) ', size = 12, rotation=270)
 
 plt.show()
+
+# ---------------------------------------------------------------------------------------------------------------------------
+##### TO DO LIST
+# Mask the lakes
+# Time Series of Air Quality VAR Conc over the entire region? Or one particular area? (Likely not going to be added to this)
