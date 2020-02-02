@@ -24,8 +24,55 @@ for i in range(0,24):
 plt.plot(range(0,24), totalgridsumperhour, 'o-')
 plt.title('Hourly SO2 Concentrations for 2018/08/09', size = 15)
 plt.ylabel(' SO2 concentration (ppbV) ', size = 12, rotation=90)
-plt.xlabel(' Hour ', size = 12, rotation=0)
+plt.xlabel(' Time (Hour) ', size = 12, rotation=0)
+plt.show()
+# -----------------------------------------------------
+# Hourly sums over the entire grid (hourly-data averaged over the month) 
+def getAvHourlyData():
+    allhours = []
+    day_count = 0
+    for month, day in itertools.product(range(8,10), range(1,32)):
+        if month < 10:
+            month_i = "0{}".format(month)
+        else:
+            month_i ="{}".format(month)
+        if day < 10:
+            day_i = "0{}".format(day)
+        else:
+            day_i = "{}".format(day)
+        filename = "/projects/b1045/wrf-cmaq/output/Chicago_LADCO/output_Cassia_noCMV_4km_sf_rrtmg_10_8_1_v3852/postprocess/COMBINE_ACONC_2018{}{}.nc".format(month_i, day_i)
+        try:
+            day_data = Dataset(filename,mode='r')
+            day_var = abs(day_data.variables["SO2"][:])
+            for i in range(0,24):
+                day_var_sum = day_var[i,0,:,:]
+                sumovergridperhoureach = np.concatenate(day_var_sum).sum()
+                allhours.append(sumovergridperhoureach)
+        except IOError:
+            pass
+    return allhours
+
+allhours = getAvHourlyData()
+l = [ allhours [i:i + 24] for i in range(0, len(allhours), 24) ]
+summedallhours = [sum(i) for i in zip(*l)]
+daycount = 32
+summedallhours[:] = [x / daycount for x in summedallhours]
+print(summedallhours[:])
+
+plt.plot(range(0,24), summedallhours[:], 'o-')
+plt.title('Hourly SO2 Concentrations over Month', size = 15)
+plt.ylabel(' SO2 concentration (ppbV) ', size = 12, rotation=90)
+plt.xlabel(' Time (Hour) ', size = 12, rotation=0)
 plt.show()
 
-#QUESTION: What does hour 0 mean? What timezone is being used?
 # -----------------------------------------------------
+# Creating graph with all hourly data plotted in one graph 
+plt.figure(figsize=(15,10))
+for lists in l:
+    timed = plt.plot(lists,linestyle='-', linewidth=1)
+    timed = plt.xlabel('Time (Hour)')
+    timed = plt.xticks(np.arange(0, 24, step=1))
+    timed = plt.ylabel('SO2 concentration (ppbV)')
+plt.show()
+# -----------------------------------------------------
+#QUESTION: What does hour 0 mean? What timezone is being used?
